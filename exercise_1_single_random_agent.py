@@ -21,7 +21,14 @@ def run_single_agent(environment: Env, agent: Agent, n_episodes: int) -> np.ndar
         while not terminal:
             steps += 1
             # TODO - Main Loop (4 lines of code)
-            raise NotImplementedError()
+            agent.see(observation)
+            action=agent.action()
+            observation, reward, terminal, info = environment.step(action)
+            environment.render()
+            #observation=next_observation
+            #if agent.name != 'Random':
+
+            #raise NotImplementedError()
 
         environment.close()
 
@@ -35,11 +42,14 @@ class RandomAgent(Agent):
     def __init__(self, n_actions: int):
         super(RandomAgent, self).__init__("Random Agent")
         # TODO
-        raise NotImplementedError()
+        self.n_actions=n_actions
+        self.name='Random'
+        #raise NotImplementedError()
 
     def action(self) -> int:
         # TODO
-        raise NotImplementedError()
+        return np.random.randint(self.n_actions)
+        #raise NotImplementedError()
 
 
 if __name__ == '__main__':

@@ -1,9 +1,10 @@
 import math
 import random
 import argparse
+from tkinter import N
 import numpy as np
 from scipy.spatial.distance import cityblock
-
+import time
 from aasma import Agent
 from aasma.utils import compare_results
 from aasma.wrappers import SingleAgentWrapper
@@ -27,14 +28,22 @@ class GreedyAgent(Agent):
         self.agent_id = agent_id
         self.n_agents = n_agents
         self.n_actions = N_ACTIONS
+        self.name="Greedy"
 
     def action(self) -> int:
-        agents_positions = self.observation[:self.n_agents * 2]
+        agents_positions = self.observation[:self.n_agents*2]
         # TODO - Expect 5-8 lines of code
+        #prey_positions = self.observation[:self.]
+
+        prey_positions=self.observation[self.n_agents * 2:]    
+        closest_prey = self.closest_prey(agents_positions, prey_positions)
+        action = self.direction_to_go(agents_positions, closest_prey)
+        
+        return action
         #  You may use the two auxiliary methods down below
         #  Warning: Your code should work for an arbitrary number of preys
         #  (even though the examples considers a single one)
-        raise NotImplementedError()
+        #raise NotImplementedError()
 
     # ################# #
     # Auxiliary Methods #

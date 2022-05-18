@@ -20,11 +20,18 @@ def run_multi_agent(environment: Env, agents: Sequence[Agent], n_episodes: int) 
         steps = 0
         terminals = [False for _ in range(len(agents))]
         observations = environment.reset()
-
         while not all(terminals):
+            n_agent=0
             steps += 1
             # TODO - Main Loop (4-6 lines of code)
-            raise NotImplementedError()
+            actions=[]
+            for i in range(len(agents)):
+                agents[i].see(observations[i])
+                actions+=[agents[i].action()]
+            observations, reward, terminals, info = environment.step(actions)
+            
+            environment.render()
+            #raise NotImplementedError()
 
         results[episode] = steps
 
